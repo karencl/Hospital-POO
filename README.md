@@ -24,14 +24,14 @@ Todas estas junto sus respectivos atributos y métodos. Lo cual facilitará la c
 - Se hará uso de 5 clases en total (dos de ellas heredn de una).
 - Se usarán vectores para el manejo de los objetos de las clases.
 
-# Casos para los que el programa
-En el que funcionaría:
+# Casos para los que el programa...
+Funcionaría:
 - Se respetan los límites de los vectores al momento de por ejemplo: querer dar de alta a un paciente
 - Se ingresan los tipos de datos correctos al momento de crear un nuevo objeto
 - Se toman en cuenta los datos y disponibilidades de los cuartos al momento de ingresar un paciente
 - Se elige una opción válida en el menú
 
-En el que NO funcionaría:
+NO funcionaría:
 - Se sobrepasan las posiciones de los vectores "médicos" y "pacientes"
 - Se quiere utilizar más médicos de los que hay en una operación
 - Se pasan datos erroneos al momento de ingresar o contrarar a un paciente
