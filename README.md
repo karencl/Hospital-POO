@@ -36,6 +36,7 @@ En el que NO funcionaría:
 - Se quiere utilizar más médicos de los que hay en una operación
 - Se pasan datos erroneos al momento de ingresar o contrarar a un paciente
 - Se ignoran los datos de los cuartos (disponibilidad/ capacidad/ etc), por lo que no se pueden ingresar pacientes
+- Se ingresan cadenas de caracteres en donde se piden números
 
 # Ejemplo de un alogritmo del programa
 - Inicio del ciclo while () {}
