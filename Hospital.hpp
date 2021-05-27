@@ -41,12 +41,12 @@ class Hospital {
         void agrega_cuarto(int);
         bool asigna_cuarto(int);
         void muestra_cuartos();
-        void ingresa_paciente(vector<Paciente> &pacientes, string,
-                              int, string, long, string, int);
-        void contrata_medico(vector<Medico> &medicos, string,
-                          int, string, long, string);
-        void da_alta_paciente(vector<Paciente> &pacientes, long);
-        void realiza_operacion(Persona *personas[]);
+        void ingresa_paciente(vector<Paciente*> &pacientes, string,
+                              int, string, string, string, int);
+        void contrata_medico(vector<Medico*> &medicos, string,
+                          int, string, string, string);
+        void da_alta_paciente(vector<Paciente*> &pacientes, long);
+        void realiza_operacion(Persona *personas[], int);
 };
 
 /*
@@ -68,6 +68,7 @@ void Hospital::crea_cuartos_prueba() {
     cuartos.push_back(cu);
     cu.set_datos(5, 2, "Disponible", 1);
     cuartos.push_back(cu);
+    cu.~Cuarto();
 }
 
 /*
@@ -82,6 +83,7 @@ void Hospital::agrega_cuarto(int _capacidad) {
     cuartos.push_back(c);
     
     cout << "Cuarto agregado exitosamente!" << endl;
+    c.~Cuarto();
 }
 
 /*
@@ -93,7 +95,7 @@ void Hospital::agrega_cuarto(int _capacidad) {
  */
 bool Hospital::asigna_cuarto(int _num_cuarto) {
     if (cuartos[_num_cuarto-1].get_disponibilidad() == "Disponible") {
-        cuartos[_num_cuarto-1].set_num_pacientes();
+        cuartos[_num_cuarto-1].set_num_pacientes_mas();
         cuartos[_num_cuarto-1].set_disponibilidad();
         return true;
     }
@@ -121,15 +123,14 @@ void Hospital::muestra_cuartos() {
 /*
  * Función "ingresa_paciente()" -> crea un objeto Paciente y lo agrega al vector
  *
- * @param vector<Paciente> &pacientes
+ * @param vector<Paciente*> &pacientes
  * @return No retorna nada
  *
  */
-void Hospital::ingresa_paciente(vector<Paciente> &pacientes, string nomb, int ed,
-                                string gen, long tel, string cond, int cu) {
+void Hospital::ingresa_paciente(vector<Paciente*> &pacientes, string nomb, int ed,
+                                string gen, string tel, string cond, int cu) {
     if (asigna_cuarto(cu)) {
-        Paciente p(pacientes.size() + 1, nomb, ed, gen, tel, cond, cu);
-        pacientes.push_back(p);
+        pacientes.push_back(new Paciente(pacientes.size() + 1, nomb, ed, gen, tel, cond, cu));
         cout << "Paciente ingresado exitosamente!" << endl;
     } else {
         cout << "No se pudo ingresar al paciente! El cuarto no se encuentra disponible." << endl;
@@ -139,34 +140,40 @@ void Hospital::ingresa_paciente(vector<Paciente> &pacientes, string nomb, int ed
 /*
  * Función "contrata_medico()" -> crea un objeto Medico y lo agrega al vector
  *
- * @param vector<Medico> &medicos
+ * @param vector<Medico*> &medicos
  * @return No retorna nada
  *
  */
-void Hospital::contrata_medico(vector<Medico> &medicos, string nomb,
-                     int ed, string gen, long tel, string esp) {
-    Medico m(medicos.size() + 1, nomb, ed, gen, tel, esp);
-    medicos.push_back(m);
+void Hospital::contrata_medico(vector<Medico*> &medicos, string nomb,
+                     int ed, string gen, string tel, string esp) {
+    medicos.push_back(new Medico(medicos.size() + 1, nomb, ed, gen, tel, esp));
     cout << "Nuevo médico contradado exitosamente!" << endl;
 }
 
 /*
  * Función "da_alta_paciente()" -> elimina un objeto y lo saca del vector
  *
- * @param vector<Paciente> &pacientes
+ * @param vector<Paciente*> &pacientes, id_p
  * @return No retorna nada
  *
  */
-void Hospital::da_alta_paciente(vector<Paciente> &pacientes, long id_p) {
+void Hospital::da_alta_paciente(vector<Paciente*> &pacientes, long id_p) {
     if (id_p >= pacientes.size()) {
         cout << "Paciente no encontrado!" << endl;
     } else {
+        int num_cu = pacientes[id_p]->get_num_cuarto();
+        
+        delete pacientes[id_p];
         pacientes.erase(pacientes.begin() + id_p);
+        
         for (int i = 0; i < pacientes.size(); i++){
-            pacientes[i].set_id(i+1);
+            pacientes[i]->set_id(i+1);
         }
     
         cout << "Alta dada exitosamente!" << endl;
+        
+        cuartos[num_cu-1].set_num_pacientes_menos();
+        cuartos[num_cu-1].set_disponibilidad();
     }
 }
 
@@ -175,16 +182,16 @@ void Hospital::da_alta_paciente(vector<Paciente> &pacientes, long id_p) {
 * Aquí se aplica polimorfismo, al llamar a la función "operacion()" y ver como
 * actúa diferente con los diferentes tipos de objetos
 *
-* @param Paciente &paciente, Medico &medico, duracion, costo
+* @param Persona * personas[], int pers
 * @return No retorna nada
 *
 */
-void Hospital::realiza_operacion(Persona * personas[]) {
-    for (int i = 0; i < 2; i++) {
+void Hospital::realiza_operacion(Persona * personas[], int pers) {
+    for (int i = 0; i <= pers; i++) {
         personas[i]->operacion();
     }
-    cout << "\nOperación realizada con éxito!" << endl;
-    cout << "(Checa las modificaciones en el perfil del paciente y el médico!)."<<endl;
+    cout << "\nOPERACIÓN REALIZADA CON ÉXITO!" << endl;
+    cout << "\n(Checa las modificaciones en el perfil del paciente y el médico!)."<<endl;
 }
 
 #endif /* Hospital_hpp */

@@ -43,8 +43,12 @@ class Cuarto {
         int get_capacidad();
         string get_disponibilidad();
         int get_num_pacientes();
-        void set_num_pacientes();
+        void set_num_pacientes_mas();
+        void set_num_pacientes_menos();
         void set_disponibilidad();
+    
+        //Destructor
+        ~Cuarto();
 };
 
 /*
@@ -107,14 +111,25 @@ int Cuarto::get_num_pacientes() {
 }
 
 /*
- * Setter del número de pacientes que hay en un cuarto
+ * Setter del número de pacientes que hay en un cuarto (pone)
  *
  * @param No recibe parámetros
  * @return No retorna nada
  *
  */
-void Cuarto::set_num_pacientes() {
+void Cuarto::set_num_pacientes_mas() {
     num_pacientes++;
+}
+
+/*
+ * Setter del número de pacientes que hay en un cuarto (quita)
+ *
+ * @param No recibe parámetros
+ * @return No retorna nada
+ *
+ */
+void Cuarto::set_num_pacientes_menos() {
+    num_pacientes--;
 }
 
 /*
@@ -127,6 +142,17 @@ void Cuarto::set_num_pacientes() {
 void Cuarto::set_disponibilidad() {
     if (num_pacientes == capacidad)
         disponibilidad = "No disponible";
+    else
+        disponibilidad = "Disponible";
 }
+
+/*
+ * Destructor de un objeto Cuarto
+ *
+ * @param No recibe parámetros
+ * @return No retorna nada
+ *
+ */
+Cuarto::~Cuarto(){}
 
 #endif /* Cuarto_hpp */
