@@ -1,3 +1,6 @@
+# Para este avance:
+Se hicieron unas correciones en las funciones y atributos de algunas clases, se actualizó el UML y se agregó polimorfismo para la función "operación()" de objetos Persona (médicos y pacientes). Esto se puede encontrar en la opción 7 del menú y en la función "realiza_operacion()" en la clase Hospital.
+
 # Proyecto para la materia: programación orientada a objetos
 Este trabajo es parte del proyecto para la materia "Programación orientada a objetos".
 
