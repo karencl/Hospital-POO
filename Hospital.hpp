@@ -10,6 +10,15 @@
  * Copyright © 2020 KarenCbrs. All rights reserved.
  */
 
+/*
+ * La clase Hospital, contiene todos los métodos para el movimiento de
+ * Medicos, Cuatos y Pacientes en este.
+ * Así mismo, contiene un método para realizar operaciones e interactuar con
+ * los involucrados dependiendo del tipo de rol que jueguen en el hospital
+ * (Medico/ Paciente).
+ * Esta clase es utilizada en la función principal del prgrama: el main()
+ */
+
 #ifndef Hospital_hpp
 #define Hospital_hpp
 
@@ -33,6 +42,7 @@ class Hospital {
     public:
         //Constructor por default de la clase Hospital
         Hospital(): nombre(""), nivel(0){};
+    
         //Otro constructor
         Hospital(string nomb, int lvl): nombre(nomb), nivel(lvl){};
     
@@ -52,8 +62,11 @@ class Hospital {
 /*
  * Función "crea_cuartos_prueba()" -> crea cuartos de prueba para el programa
  *
- * @param No recibe ningún parámetro
- * @return No retorna nada
+ * - Se crean objetos de tipo Cuarto y se agregan al vector "cuartos", con sus
+ * respectivos datos.
+ *
+ * @param
+ * @return
  *
  */
 void Hospital::crea_cuartos_prueba() {
@@ -74,8 +87,11 @@ void Hospital::crea_cuartos_prueba() {
 /*
  * Función "agrega_cuarto()" -> agrega un cuarto al vector de cuartos
  *
- * @param _num_cuarto, _capacidad, _disponibilidad, _num_pacientes
- * @return No retorna nada
+ * - Se crea un objeto de tipo cuarto, usando parámetros que nos pasa el usuario
+ * y uno de los constructores de la clase.
+ *
+ * @param int _num_cuarto
+ * @return
  *
  */
 void Hospital::agrega_cuarto(int _capacidad) {
@@ -89,8 +105,13 @@ void Hospital::agrega_cuarto(int _capacidad) {
 /*
  * Función "asigna_cuarto()" -> asgina un cuarto a un paciente
  *
- * @param _num_cuarto, _id_paciente
- * @return No retorna nada
+ * - En esta función se comprueba si el atributo "disponibilidad" de un objeto
+ * Cuarto se encuentra como disponible o no. En caso de que si, se asigna a un
+ * Paciente y se hacen cambios en los atributos "set_num_pacientes" y
+ * "disponibilidad" del objeto Cuarto, a través de setters de su respectiva clase.
+ *
+ * @param int _num_cuarto
+ * @return bool -> TRUE si está disponible y FALSE si no lo está
  *
  */
 bool Hospital::asigna_cuarto(int _num_cuarto) {
@@ -105,8 +126,10 @@ bool Hospital::asigna_cuarto(int _num_cuarto) {
 /*
  * Función "muestra_cuartos()" -> muestra datos de los objetos Cuarto
  *
- * @param No recibe parámetros
- * @return No retorna nada
+ * - Se despliegan los datos de todos los objetos Cuarto en el vector "cuartos".
+ *
+ * @param
+ * @return
  *
  */
 void Hospital::muestra_cuartos() {
@@ -123,29 +146,39 @@ void Hospital::muestra_cuartos() {
 /*
  * Función "ingresa_paciente()" -> crea un objeto Paciente y lo agrega al vector
  *
+ * - Se crea el objeto Paciente con los datos ingresados por el usuario y se
+ * agrega al final del vector.
+ *
  * @param vector<Paciente*> &pacientes
- * @return No retorna nada
+ * @return
  *
  */
-void Hospital::ingresa_paciente(vector<Paciente*> &pacientes, string nomb, int ed,
-                                string gen, string tel, string cond, int cu) {
+void Hospital::ingresa_paciente(vector<Paciente*> &pacientes, string nomb,
+                                int ed, string gen, string tel, string cond,
+                                int cu) {
+    
     if (asigna_cuarto(cu)) {
-        pacientes.push_back(new Paciente(pacientes.size() + 1, nomb, ed, gen, tel, cond, cu));
+        pacientes.push_back(new Paciente(pacientes.size() + 1, nomb, ed, gen,
+                                         tel, cond, cu));
         cout << "Paciente ingresado exitosamente!" << endl;
     } else {
-        cout << "No se pudo ingresar al paciente! El cuarto no se encuentra disponible." << endl;
+        cout << "Error al ingresar! El cuarto no está disponible." << endl;
     }
 }
 
 /*
  * Función "contrata_medico()" -> crea un objeto Medico y lo agrega al vector
  *
+ * - Se crea el objeto MEdico con los datos ingresados por el usuario y se
+ * agrega al final del vector.
+ *
  * @param vector<Medico*> &medicos
- * @return No retorna nada
+ * @return
  *
  */
 void Hospital::contrata_medico(vector<Medico*> &medicos, string nomb,
-                     int ed, string gen, string tel, string esp) {
+                               int ed, string gen, string tel, string esp) {
+    
     medicos.push_back(new Medico(medicos.size() + 1, nomb, ed, gen, tel, esp));
     cout << "Nuevo médico contradado exitosamente!" << endl;
 }
@@ -153,8 +186,11 @@ void Hospital::contrata_medico(vector<Medico*> &medicos, string nomb,
 /*
  * Función "da_alta_paciente()" -> elimina un objeto y lo saca del vector
  *
- * @param vector<Paciente*> &pacientes, id_p
- * @return No retorna nada
+ * - Se comprueba si el id ingresado por el usuario es válido y en caso de que si,
+ * se elimina el apuntador al objeto con "delete" y se libera el espacio
+ *
+ * @param vector<Paciente*> &pacientes, int id_p
+ * @return
  *
  */
 void Hospital::da_alta_paciente(vector<Paciente*> &pacientes, long id_p) {
@@ -178,12 +214,18 @@ void Hospital::da_alta_paciente(vector<Paciente*> &pacientes, long id_p) {
 }
 
 /*
-* Función "realiza_operacion()" -> realiza una operación (modifica objetos)
-* Aquí se aplica polimorfismo, al llamar a la función "operacion()" y ver como
-* actúa diferente con los diferentes tipos de objetos
+* Función "realiza_operacion()" -> médicos realizan una operación a un paciente
+*
+* - Esta función aplica polimorfismo al llamar a la función "operacion()" para
+* todos los objetos dentro de "personas" que es de tipo "Persona" (es decir,
+* contiene objetos Medico y Paciente).
+* Aquí se puede ver como esta dicha función actúa diferente con los diferentes
+* tipos de objetos.
+* - Cada clase tiene la función "operación()" sobreescrita, ya que modifican
+* diferentes atributos segun su tipo
 *
 * @param Persona * personas[], int pers
-* @return No retorna nada
+* @return
 *
 */
 void Hospital::realiza_operacion(Persona * personas[], int pers) {
@@ -191,7 +233,7 @@ void Hospital::realiza_operacion(Persona * personas[], int pers) {
         personas[i]->operacion();
     }
     cout << "\nOPERACIÓN REALIZADA CON ÉXITO!" << endl;
-    cout << "\n(Checa las modificaciones en el perfil del paciente y el médico!)."<<endl;
+    cout << "\n(Checa las modificaciones en los perfiles!)."<<endl;
 }
 
 #endif /* Hospital_hpp */

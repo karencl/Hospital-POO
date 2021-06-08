@@ -10,6 +10,14 @@
  * Copyright © 2020 KarenCbrs. All rights reserved.
  */
 
+/*
+ * La clase Cuarto contiene todos los métodos para objetos de esta, que mayormente
+ * incluyen obtener y modificar los atributos de estos.
+ * Se puede ver que la relación de Cuarto con la clase Hospital es de tipo
+ * composición, ya que estos objetos son creados allá y su tiempo de vida,
+ * depende del tiempo de vida de la otra clase.
+ */
+
 #ifndef Cuarto_hpp
 #define Cuarto_hpp
 
@@ -31,11 +39,13 @@ class Cuarto {
         //Constructor por default de la clase Cuarto
         Cuarto(): num_cuarto(1), capacidad(1), disponibilidad("Disponible"),
         num_pacientes(0){};
-        //Otros constructor
-        Cuarto(long nc, int cap, string disp, int np): num_cuarto(nc), capacidad(cap),
-        disponibilidad(disp), num_pacientes(np){};
+    
+        //Otros constructores
+        Cuarto(long nc, int cap, string disp, int np): num_cuarto(nc),
+            capacidad(cap), disponibilidad(disp), num_pacientes(np){};
+    
         Cuarto(long nc, int cap): num_cuarto(nc), capacidad(cap),
-        disponibilidad("Disponible"), num_pacientes(0){};
+            disponibilidad("Disponible"), num_pacientes(0){};
     
         //Métodos
         void set_datos(long, int, string, int);
@@ -58,8 +68,9 @@ class Cuarto {
  * @return No retorna nada
  *
  */
-void Cuarto::set_datos(long _num_cuarto, int _capacidad, string _disponibilidad,
-                       int _num_pacientes){
+void Cuarto::set_datos(long _num_cuarto, int _capacidad,
+                       string _disponibilidad, int _num_pacientes){
+    
     num_cuarto = _num_cuarto;
     capacidad = _capacidad;
     disponibilidad = _disponibilidad;

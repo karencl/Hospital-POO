@@ -10,6 +10,13 @@
  * Copyright © 2020 KarenCbrs. All rights reserved.
  */
 
+/*
+ * Clase Persona -> clase abstracta.
+ * Contiene los métodos y atributos genéricos de los objetos
+ * "Persona" y tiene 2 clases hijas:
+ * Paciente y Medico
+ */
+
 #ifndef Persona_hpp
 #define Persona_hpp
 
@@ -28,12 +35,13 @@ class Persona {
         int edad;
         string genero;
         string telefono;
+    
     public:
         //Constructor por default de la clase Persona
         Persona(): id(0), nombre(""), edad(0), genero(""), telefono(""){};
         //Otro constructor
-        Persona(long i, string nomb, int ed, string gen, string tel): id(i), nombre(nomb),
-        edad(ed), genero(gen), telefono(tel){};
+        Persona(long i, string nomb, int ed, string gen, string tel): id(i),
+            nombre(nomb), edad(ed), genero(gen), telefono(tel){};
     
         //Métodos abstractos que serán sobreescritos (se aplica polimorfismo)
         virtual void operacion() = 0;
@@ -50,7 +58,7 @@ class Persona {
 /*
  * Getter del atributo "id" de un objeto Persona
  *
- * @param No recibe parámetros
+ * @param
  * @return long -> id del objeto Persona
  *
  */
@@ -61,7 +69,7 @@ long Persona::get_id() {
 /*
  * Getter del atributo "nombre" de un objeto Persona
  *
- * @param No recibe parámetros
+ * @param
  * @return string -> nombre del objeto Persona
  *
  */
@@ -72,7 +80,7 @@ string Persona::get_nombre() {
 /*
  * Getter del atributo "edad" de un objeto Persona
  *
- * @param No recibe parámetros
+ * @param
  * @return int -> edad del objeto Persona
  *
  */
@@ -83,7 +91,7 @@ int Persona::get_edad() {
 /*
  * Getter del atributo "genero" de un objeto Persona
  *
- * @param No recibe parámetros
+ * @param
  * @return string -> género del objeto Persona
  *
  */
@@ -94,7 +102,7 @@ string Persona::get_genero() {
 /*
  * Getter del atributo "telefono" de un objeto Persona
  *
- * @param No recibe parámetros
+ * @param
  * @return string -> teléfono del objeto Persona
  *
  */
@@ -105,8 +113,8 @@ string Persona::get_tel() {
 /*
  * Setter del atributo "id" de un objeto Persona
  *
- * @param _id
- * @return No retorna nada
+ * @param long _id
+ * @return
  *
  */
 void Persona::set_id(long _id) {
@@ -122,17 +130,20 @@ class Medico : public Persona {
         string especialidad;
         int tiempo_quirofano;
         double total_honorarios;
+    
     public:
         //Constructor por default de la subclase Medico
         Medico(): Persona(), especialidad(""), tiempo_quirofano(0),
         total_honorarios(0.0){};
-        //Otros constructor
-        Medico(long i, string nomb, int ed, string gen, string tel, string esp, int tq,
-        double th): Persona(i, nomb, ed, gen, tel), especialidad(esp),
-        tiempo_quirofano(tq), total_honorarios(th){};
+    
+        //Otros constructores
+        Medico(long i, string nomb, int ed, string gen, string tel, string esp,
+               int tq, double th): Persona(i, nomb, ed, gen, tel),
+               especialidad(esp), tiempo_quirofano(tq), total_honorarios(th){};
+    
         Medico(long i, string nomb, int ed, string gen, string tel,
-        string esp): Persona(i, nomb, ed, gen, tel), especialidad(esp),
-        tiempo_quirofano(0), total_honorarios(0){};
+               string esp): Persona(i, nomb, ed, gen, tel), especialidad(esp),
+               tiempo_quirofano(0), total_honorarios(0){};
     
         //Métodos
         void operacion();
@@ -144,23 +155,26 @@ class Medico : public Persona {
 /*
  * Función "operacion()" -> se realiza una operación a una persona
  *
- * @param No recibe parámetros
- * @return No retorna nada
+ * - Modifica el atributo "tiempo_quirofano" y "total_honorarios" de un objeto de
+ * tipo Medico y al final despliega los nuevos datos
+ *
+ * @param
+ * @return
  *
  */
 void Medico::operacion() {
     tiempo_quirofano += 4;
     total_honorarios += 10000;
     
-    cout << "Médico: " << nombre << " - Ingresos nuevos: " << 10000
-    << " ...totales: " << total_honorarios << " - Duración de la operación: "
-    <<  4  << " - Tiempo en operaciones: " << tiempo_quirofano << endl;
+    cout<<"Médico: "<<nombre<<" - Nuevos ingresos: "<<10000<<" ...totales: "<<
+        total_honorarios<<" - Duración de la operación: "<<4<<
+        " - Tiempo en operaciones: "<<tiempo_quirofano<<endl;
 }
 
 /*
  * Getter del atributo "especialidad" de un objeto Medico
  *
- * @param No recibe parámetros
+ * @param
  * @return string -> especialidad de un objeto Medico
  *
  */
@@ -171,7 +185,7 @@ string Medico::get_especialidad() {
 /*
  * Getter del atributo "tiempo_quirofano" de un objeto Medico
  *
- * @param No recibe parámetros
+ * @param
  * @return int -> tiempo en quirófano de un objeto Medico
  *
  */
@@ -182,7 +196,7 @@ int Medico::get_temp_quir() {
 /*
  * Getter del atributo "total_honorarios" de un objeto Medico
  *
- * @param No recibe parámetros
+ * @param
  * @return double -> total de honorarios de un objeto Medico
  *
  */
@@ -201,17 +215,23 @@ class Paciente : public Persona {
         int num_operaciones;
         double cuenta;
         int cuarto;
+    
     public:
         //Constructor por default de la subclase Paciente
         Paciente(): Persona(), condicion(""), tiempo_hospitalizacion(0),
         num_operaciones(0), cuenta(0.0), cuarto(1){};
-        //Otros constructor
-        Paciente(long i, string nomb, int ed, string gen, string tel, string cond, int th,
-        int no, double cue, int cua): Persona(i, nomb, ed, gen, tel), condicion(cond),
-        tiempo_hospitalizacion(th), num_operaciones(no), cuenta(cue), cuarto(cua){};
-        Paciente(long i, string nomb, int ed, string gen, string tel, string cond,
-        int cua): Persona(i, nomb, ed, gen, tel), condicion(cond),
-        tiempo_hospitalizacion(0), num_operaciones(0), cuenta(0), cuarto(cua){};
+    
+        //Otros constructores
+        Paciente(long i, string nomb, int ed, string gen, string tel,
+                 string cond, int th, int no, double cue, int cua):
+                 Persona(i, nomb, ed, gen, tel), condicion(cond),
+                 tiempo_hospitalizacion(th), num_operaciones(no),
+                 cuenta(cue), cuarto(cua){};
+        
+        Paciente(long i, string nomb, int ed, string gen, string tel,
+                 string cond, int cua): Persona(i, nomb, ed, gen, tel),
+                 condicion(cond), tiempo_hospitalizacion(0),
+                 num_operaciones(0), cuenta(0), cuarto(cua){};
     
         //Métodos
         void operacion();
@@ -225,8 +245,11 @@ class Paciente : public Persona {
 /*
  * Función "operacion()" -> se realiza una operación a una persona
  *
- * @param No recibe parámetros
- * @return No retorna nada
+ * - Modifica el atributo "num_operaciones", "tiempo_hospitalizacion" y "cuenta"
+ * de un objeto de tipo Paciente y al final despliega los nuevos datos
+ *
+ * @param
+ * @return
  *
  */
 void Paciente::operacion() {
@@ -243,7 +266,7 @@ void Paciente::operacion() {
 /*
  * Getter del atributo "condicion" de un objeto Paciente
  *
- * @param No recibe parámetros
+ * @param
  * @return string -> condicion de un objeto Paciente
  *
  */
@@ -254,7 +277,7 @@ string Paciente::get_condicion() {
 /*
  * Getter del atributo "tiempo_hospitalizacion" de un objeto Paciente
  *
- * @param No recibe parámetros
+ * @param
  * @return int -> tiempo de hospitalización de un objeto Paciente
  *
  */
@@ -265,7 +288,7 @@ int Paciente::get_temp_hosp() {
 /*
  * Getter del atributo "num_operaciones" de un objeto Paciente
  *
- * @param No recibe parámetros
+ * @param
  * @return int -> número de operaciones de un objeto Paciente
  *
  */
@@ -276,7 +299,7 @@ int Paciente::get_num_ops() {
 /*
  * Getter del atributo "cuenta" de un objeto Paciente
  *
- * @param No recibe parámetros
+ * @param
  * @return double -> cuenta de un objeto Paciente
  *
  */
@@ -287,7 +310,7 @@ double Paciente::get_cuenta() {
 /*
  * Getter del atributo "cuarto" de un objeto Paciente
  *
- * @param No recibe parámetros
+ * @param
  * @return int -> número de cuarto de un objeto Paciente
  *
  */

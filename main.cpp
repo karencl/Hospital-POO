@@ -12,9 +12,10 @@
 
 /*
  * Descripción:
- * Este es un proyecto para la clase de programación orientada
- * a objetos.
- * Es un programa que simula el funcionamiento de un hospital.
+ * Este es un proyecto para la clase de "Programación orientada a objetos".
+ * Es un programa que simula el funcionamiento de un hospital, a través del
+ * movimiento de las personas que se encuentran en el y la interacción entre
+ * ellas.
  */
 
 //Librerías utilizadas
@@ -36,6 +37,7 @@ void muestra_menu();
 void muestra_medicos(vector<Medico*> medicos);
 void muestra_pacientes(vector<Paciente*> pacientes);
 
+//Main
 int main() {
     
     //Crea objeto de prueba de la clase Hospital
@@ -50,8 +52,8 @@ int main() {
     vector<Medico*> medicos;
     crea_medicos(medicos);
     
-    cout << "App: Hospital-POO" << endl;
-    cout << "*** Agranda la ventana para ver mejor las cosas que se imprimirán en la consola ***" << endl;
+    cout<<"App: Hospital-POO"<<endl;
+    cout<<"*** Agranda la ventana para ver bien lo que se imprimirá ***"<<endl;
     int opcion = 1;
     
     //Ciclo while donde se desplegará el menú de opciones
@@ -71,12 +73,12 @@ int main() {
             muestra_pacientes(pacientes);
         }
         
-        //Opción 3: muestra vector (creado desde la clase Hospital) de objetos Cuarto
+        //Opción 3: muestra vector (creado desde Hospital) de objetos Cuarto
         else if (opcion == 3) {
             hospital1.muestra_cuartos();
         }
         
-        //Opción 4: Agrega un nuevo cuarto (crea un nuevo objeto y lo agrega al vector)
+        //Opción 4: Agrega un nuevo cuarto (nuevo objeto y lo agrega al vector)
         else if (opcion == 4) {
             cout << "Se agregará un nuevo cuarto al hospital..." << endl;
             
@@ -87,7 +89,7 @@ int main() {
             hospital1.agrega_cuarto(cap);
         }
         
-        //Opción 5: Ingresa un nuevo paciente (crea un nuevo objeto y lo agrega al vector)
+        //Opción 5: Ingresa un paciente (nuevo objeto y lo agrega al vector)
         else if (opcion == 5) {
             cout << "Se ingresará un nuevo paciente al hospital..." << endl;
             string nomb, gen, cond, tel;
@@ -106,10 +108,11 @@ int main() {
             cin >> cuarto;
             cout << endl;
             
-            hospital1.ingresa_paciente(pacientes, nomb, edad, gen, tel, cond, cuarto);
+            hospital1.ingresa_paciente(pacientes, nomb, edad, gen, tel, cond,
+                                       cuarto);
         }
         
-        //Opción 6: Contrata un nuevo médico (crea un nuevo objeto y lo agrega al vector)
+        //Opción 6: Contrata médico (nuevo objeto y lo agrega al vector)
         else if (opcion == 6) {
             cout << "Se contratará un nuevo médico en el hospital..." << endl;
             string nomb, gen, esp, tel;
@@ -143,36 +146,43 @@ int main() {
             cout << "¿Cuántos médicos van a ingresar a la operación?: ";
             cin >> num_meds;
             
-            bool bandera = false;
-            Persona * involucrados_op[num_meds+1];
+            if (num_meds > 0) {
             
-            for (int i = 0; i < num_meds; i++) {
-                cout << " * Ingresa el ID del médico que va a realizar la operación: ";
-                cin >> id_m;
-                cout << endl;
+                bool bandera = false;
+                Persona * involucrados_op[num_meds+1];
+            
+                for (int i = 0; i < num_meds; i++) {
+                    cout << " * Ingresa el ID del médico " << i+1 << " : ";
+                    cin >> id_m;
+                    cout << endl;
                 
-                if (id_m > medicos.size())
+                    if (id_m > medicos.size())
+                        bandera = true;
+                    else
+                        involucrados_op[i] = medicos[id_m-1];
+                }
+    
+                cout << " * Ingresa el ID del paciente a operar: ";
+                cin >> id_p;
+                cout << endl;
+            
+                if (id_p > pacientes.size())
                     bandera = true;
                 else
-                    involucrados_op[i] = medicos[id_m-1];
+                    involucrados_op[num_meds] = pacientes[id_p-1];
+            
+                if (bandera)
+                    cout << "Error! Revisa los IDs de los involucrados." << endl;
+                else
+                    hospital1.realiza_operacion(involucrados_op, num_meds);
             }
-    
-            cout << " * Ingresa el ID del paciente a operar: ";
-            cin >> id_p;
-            cout << endl;
-            
-            if (id_p > pacientes.size())
-                bandera = true;
-            else
-                involucrados_op[num_meds] = pacientes[id_p-1];
-            
-            if (bandera)
-                cout << "Error! Revisa los IDs de los involucrados en la operación." << endl;
-            else
-                hospital1.realiza_operacion(involucrados_op, num_meds);
+            else {
+                cout << "\n * * Error! * * " << endl;
+                cout << "Al menos un médico tiene que estar presente." << endl;
+            }
         }
         
-        //Opción 8: Da de alta a un paciente (elimina objeto y lo saca del vector)
+        //Opción 8: Da de alta paciente (elimina objeto y lo saca del vector)
         else if (opcion == 8) {
             cout << "Proceso para dar de alta a un paciente...\n" << endl;
             
@@ -186,7 +196,7 @@ int main() {
             hospital1.da_alta_paciente(pacientes, id-1);
         }
         
-        //Opción 9: Salir del programa (se eliminan los objetos de los vectores)
+        //Opción 9: Salir del programa (elimina los objetos de los vectores)
         else if (opcion == 9) {
             for (auto p : pacientes) {
                 delete p;
@@ -213,38 +223,61 @@ int main() {
 /*
  * Función "crea_pacientes()" -> crea objetos de prueba de la clase Paciente
  *
+ * - Se crean objetos de tipo Paciente y se agregan al vector "pacientes".
+ * La manera en la que se crean los nuevos objetos en este caso, es debido a que
+ * el vector que se utilizó en este caso, es uno de apuntadores hacia este tipo en
+ * específico de bjetos de esta clase.
+ *
  * @param vector<Paciente*> &pacientes
- * @return No retorna nada
+ * @return
  *
  */
 void crea_pacientes(vector<Paciente*> &pacientes) {
-    pacientes.push_back(new Paciente(1, "Paco", 27, "Masculino", "9831236712", "Estable", 10, 1, 7700, 1));
-    pacientes.push_back(new Paciente(2, "Jimena", 15, "Femenino", "1981236746", "Estable", 3, 0, 1500, 3));
-    pacientes.push_back(new Paciente(3, "Samuel", 42, "Masculino", "7788223641", "Critico", 21, 4, 24200, 5));
-    pacientes.push_back(new Paciente(4, "Luis", 30, "Masculino", "2345243127", "Estable", 17, 2, 13000, 1));
-    pacientes.push_back(new Paciente(5, "Carla", 31, "Femenino", "9912574832", "Terapia", 39, 3, 18100, 4));
-    pacientes.push_back(new Paciente(6, "Laura", 25, "Femenino", "1244587341", "Estable", 8, 1, 7500, 4));
+    pacientes.push_back(new Paciente(1, "Paco", 27, "Masculino",
+                                     "9831236712", "Estable", 10, 1, 7700, 1));
+    pacientes.push_back(new Paciente(2, "Jimena", 15, "Femenino",
+                                     "1981236746", "Estable", 3, 0, 1500, 3));
+    pacientes.push_back(new Paciente(3, "Samuel", 42, "Masculino","7788223641",
+                                     "Critico", 21, 4, 24200, 5));
+    pacientes.push_back(new Paciente(4, "Luis", 30, "Masculino", "2345243127",
+                                     "Estable", 17, 2, 13000, 1));
+    pacientes.push_back(new Paciente(5, "Carla", 31, "Femenino", "9912574832",
+                                     "Terapia", 39, 3, 18100, 4));
+    pacientes.push_back(new Paciente(6, "Laura", 25, "Femenino", "1244587341",
+                                     "Estable", 8, 1, 7500, 4));
 }
 
 /*
  * Función "crea_medicos()" -> crea objetos de prueba de la clase Medico
  *
+ * - Se crean objetos de tipo Medico y se agregan al vector "medicos".
+ * La manera en la que se crean los nuevos objetos en este caso, es debido a que
+ * el vector que se utilizó en este caso, es uno de apuntadores hacia este tipo en
+ * específico de bjetos de esta clase.
+ *
  * @param vector<Medico*> medicos
- * @return No retorna nada
+ * @return
  *
  */
 void crea_medicos(vector<Medico*> &medicos) {
-    medicos.push_back(new Medico(1, "Andrea", 49, "Femenino", "4876129086", "Neuróloga", 27, 80000));
-    medicos.push_back(new Medico(2, "Omar", 51, "Masculino", "3493582127", "Oncólogo", 15, 40000));
-    medicos.push_back(new Medico(3, "Liliana", 55, "Femenino", "1173498784", "Endocrinóloga", 8, 30000));
-    medicos.push_back(new Medico(4, "Carlos", 47, "Masculino", "2455610082", "Cardiólogo", 20, 60000));
+    medicos.push_back(new Medico(1, "Andrea", 49, "Femenino", "4876129086",
+                                 "Neuróloga", 27, 80000));
+    medicos.push_back(new Medico(2, "Omar", 51, "Masculino", "3493582127",
+                                 "Oncólogo", 15, 40000));
+    medicos.push_back(new Medico(3, "Liliana", 55, "Femenino", "1173498784",
+                                 "Endocrinóloga", 8, 30000));
+    medicos.push_back(new Medico(4, "Carlos", 47, "Masculino", "2455610082",
+                                 "Cardiólogo", 20, 60000));
 }
 
 /*
  * Función "muestra_menu()" -> muestra el menú de opciones
  *
- * @param No recibe parámetros
- * @return No retorna nada
+ * - Esta función lo único que hace es desplegar el menú de opciones cada que se
+ * manda a llamar.
+ *
+ * @param
+ * @return
  *
  */
 void muestra_menu() {
@@ -265,14 +298,22 @@ void muestra_menu() {
 /*
  * Función "muestra_medicos()" -> muestra los objetos Medico del vector "medicos"
  *
+ * - Se muestran todos los objetos del vector a través de un ciclo for y llamadas
+ * a los "getters()" para obtener sus atributos. (Se usa "->" porque usé
+ * apuntadores)
+ * - Se le da formato a la salida, con el fin de tener todo más ordenado cuando
+ * se imprima en consola.
+ *
  * @param vector<Medico*> medicos
- * @return No retorna nada
+ * @return
  *
  */
 void muestra_medicos(vector<Medico*> medicos) {
-    cout << "ID:" << setw(13) <<"NOMBRE:" << setw(13) << "EDAD:" << setw(16) << "GÉNERO:" <<
-    setw(18) << "CONTACTO:" << setw(22) << "ESPECIALIDAD:" << setw(33) <<
-    "TIEMPO EN QUIRÓFANO (hrs):" << setw(29) << "TOTAL DE HONORARIOS ($):" << endl;
+    cout << "ID:" << setw(13) <<"NOMBRE:" << setw(13) << "EDAD:" << setw(16) <<
+    "GÉNERO:" << setw(18) << "CONTACTO:" << setw(22) << "ESPECIALIDAD:" <<
+    setw(33) << "TIEMPO EN QUIRÓFANO (hrs):" << setw(29) <<
+    "TOTAL DE HONORARIOS ($):" << endl;
+    
     for (int i = 0; i < medicos.size(); i++) {
         cout.width(2); cout << medicos[i]->get_id();
         cout.width(13); cout << medicos[i]->get_nombre();
@@ -286,16 +327,26 @@ void muestra_medicos(vector<Medico*> medicos) {
 }
 
 /*
- * Función "muestra_pacientes()" -> muestra los objetos Paciente del vector "pacientes"
+ * Función "muestra_pacientes()" -> muestra los objetos Paciente del
+ * vector "pacientes"
+ *
+ * - Se muestran todos los objetos del vector a través de un ciclo for y llamadas
+ * a los "getters()" para obtener sus atributos. (Se usa "->" porque usé
+ * apuntadores)
+ * - Se le da formato a la salida, con el fin de tener todo más ordenado cuando
+ * se imprima en consola.
  *
  * @param vector<Paciente*> pacientes
- * @return No retorna nada
+ * @return
  *
  */
 void muestra_pacientes(vector<Paciente*> pacientes) {
-    cout << "ID:" << setw(13) <<"NOMBRE:" << setw(13) << "EDAD:" << setw(16) << "GÉNERO:" <<
-    setw(18) << "CONTACTO:" << setw(23) << "CONDICIÓN:" << setw(34) << "TIEMPO HOSPITALIZAD@ (días):" <<
-    setw(23) << "NUM OPERACIONES:" << setw(14) << "CUENTA ($):" << setw(14) << "CUARTO:" << endl;
+    cout << "ID:" << setw(13) <<"NOMBRE:" << setw(13) << "EDAD:" << setw(16) <<
+    "GÉNERO:" << setw(18) << "CONTACTO:" << setw(23) << "CONDICIÓN:" <<
+    setw(34) << "TIEMPO HOSPITALIZAD@ (días):" << setw(23) <<
+    "NUM OPERACIONES:" << setw(14) << "CUENTA ($):" << setw(14) <<
+    "CUARTO:" << endl;
+    
     for (int i = 0; i < pacientes.size(); i++) {
         cout.width(2); cout << pacientes[i]->get_id();
         cout.width(13); cout << pacientes[i]->get_nombre();
