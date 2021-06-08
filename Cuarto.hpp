@@ -64,8 +64,9 @@ class Cuarto {
 /*
  * Setter de los datos de un objeto de la clase Cuarto
  *
- * @param _num_cuarto, _capacidad, _disponibilidad, _num_pacientes
- * @return No retorna nada
+ * @param  long _num_cuarto, int _capacidad, string _disponibilidad,
+ *         int _num_pacientes
+ * @return
  *
  */
 void Cuarto::set_datos(long _num_cuarto, int _capacidad,
@@ -80,7 +81,7 @@ void Cuarto::set_datos(long _num_cuarto, int _capacidad,
 /*
  * Getter del atributo "num_cuarto" de un objeto Cuarto
  *
- * @param No recibe parámetros
+ * @param
  * @return long -> número de cuarto de un objeto Cuarto
  *
  */
@@ -91,7 +92,7 @@ long Cuarto::get_num_cuarto() {
 /*
  * Getter del atributo "capacidad" de un objeto Cuarto
  *
- * @param No recibe parámetros
+ * @param
  * @return int -> capacidad de cuarto de un objeto Cuarto
  *
  */
@@ -102,7 +103,7 @@ int Cuarto::get_capacidad() {
 /*
  * Getter del atributo "disponibilidad" de un objeto Cuarto
  *
- * @param No recibe parámetros
+ * @param
  * @return string -> disponibilidad de un objeto Cuarto
  *
  */
@@ -113,7 +114,7 @@ string Cuarto::get_disponibilidad() {
 /*
  * Getter del atributo "num_pacientes" de un objeto Cuarto
  *
- * @param No recibe parámetros
+ * @param
  * @return int -> número de pacientes de un objeto Cuarto
  *
  */
@@ -124,8 +125,8 @@ int Cuarto::get_num_pacientes() {
 /*
  * Setter del número de pacientes que hay en un cuarto (pone)
  *
- * @param No recibe parámetros
- * @return No retorna nada
+ * @param
+ * @return
  *
  */
 void Cuarto::set_num_pacientes_mas() {
@@ -135,8 +136,8 @@ void Cuarto::set_num_pacientes_mas() {
 /*
  * Setter del número de pacientes que hay en un cuarto (quita)
  *
- * @param No recibe parámetros
- * @return No retorna nada
+ * @param
+ * @return
  *
  */
 void Cuarto::set_num_pacientes_menos() {
@@ -146,8 +147,8 @@ void Cuarto::set_num_pacientes_menos() {
 /*
  * Setter de la disponibilidad del cuarto
  *
- * @param No recibe parámetros
- * @return No retorna nada
+ * @param
+ * @return
  *
  */
 void Cuarto::set_disponibilidad() {
@@ -160,8 +161,8 @@ void Cuarto::set_disponibilidad() {
 /*
  * Destructor de un objeto Cuarto
  *
- * @param No recibe parámetros
- * @return No retorna nada
+ * @param
+ * @return 
  *
  */
 Cuarto::~Cuarto(){}
