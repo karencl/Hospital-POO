@@ -1,5 +1,5 @@
-# Para este avance:
-Se verificó que la clase "Persona" siguiera corretamente con los lineamientos de una clase abstracta.
+# Para la entrega final...
+Se agregaron comentarios, se checaron estándares del código y se actualizó el UML.
 
 # Proyecto para la materia: programación orientada a objetos
 Este trabajo es parte del proyecto para la materia "Programación orientada a objetos".
