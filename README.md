@@ -1,6 +1,9 @@
 # Para la entrega final...
 Se agregaron comentarios, se checaron estándares del código y se actualizó el UML.
 
+# Consideraciones...
+Se dejó la competencia de "Tecnologías y herramientas" sin calificar. Es decir, no se me puso ni se me quitó la competencia.
+
 # Proyecto para la materia: programación orientada a objetos
 Este trabajo es parte del proyecto para la materia "Programación orientada a objetos".
 
