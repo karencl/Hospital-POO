@@ -1,7 +1,4 @@
-# Para la entrega final...
-Se agregaron comentarios, se checaron estándares del código y se actualizó el UML.
-
-# Consideraciones...
+# Para correcciones de competencias...
 Se dejó la competencia de "Tecnologías y herramientas" sin calificar. Es decir, no se me puso ni se me quitó la competencia.
 
 # Proyecto para la materia: programación orientada a objetos
@@ -29,6 +26,12 @@ Todas estas junto sus respectivos atributos y métodos. Lo cual facilitará la c
 - A través de un menú de opciones, se podrán llevar a cabo las actividades mencionadas arriba.
 - Se hará uso de 5 clases en total (dos de ellas heredn de una).
 - Se usarán vectores para el manejo de los objetos de las clases.
+
+# Consideraciones
+El programa fue hecho con c++ en la aplicación "Xcode". 
+Este debe de correr para todo sistema operativo y se deben de utilizar todos los archivos de código incluidos en este repositorio (el main.cpp y los .h que son de las clases).
+
+Nota: el programa se debe de compilar dependiendo el sistema operativo. Ejemplo: en Windows sería... \a.exe
 
 # Casos para los que el programa...
 Funcionaría:
